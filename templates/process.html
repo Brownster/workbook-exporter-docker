@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process File</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('static/background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333366;
+        }
+
+        /* New style for columns */
+        .columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            width: 45%;
+        }
+    </style>
+    <script>
+        function toggleAll(checked) {
+            var checkboxes = document.getElementsByName('exporters');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = checked;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post">
+            <h1>Select Exporter to Run</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <div class="columns"> <!-- Added columns div -->
+                <div class="column"> <!-- Column 1 -->
+                    <label for="exporter_all">All</label>
+                    <input type="checkbox" id="exporter_all" name="exporters" value="all" onclick="toggleAll(this.checked)"><br>
+
+                    <label for="exporter_blackbox">Exporter Blackbox</label>
+                    <input type="checkbox" id="exporter_blackbox" name="exporters" value="exporter_blackbox"><br>
+
+                    <label for="exporter_linux">Exporter Linux</label>
+                    <input type="checkbox" id="exporter_linux" name="exporters" value="exporter_linux"><br>
+
+                    <label for="exporter_ssl">Exporter SSL</label>
+                    <input type="checkbox" id="exporter_ssl" name="exporters" value="exporter_ssl"><br>
+
+                    <label for="exporter_cms">Exporter CMS</label>
+                    <input type="checkbox" id="exporter_cms" name="exporters" value="exporter_cms"><br>
+
+                    <label for="exporter_windows">Exporter Windows</label>
+                    <input type="checkbox" id="exporter_windows" name="exporters" value="exporter_windows"><br>
+
+                    <label for="exporter_avayasbc">Exporter Avaya SBC</label>
+                    <input type="checkbox" id="exporter_avayasbc" name="exporters" value="exporter_avayasbc"><br>
+
+                    <label for="exporter_aes">Exporter AES</label>
+                    <input type="checkbox" id="exporter_aes" name="exporters" value="exporter_aes"><br>
+
+                    <label for="exporter_verint">Exporter Verint</label>
+                    <input type="checkbox" id="exporter_verint" name="exporters" value="exporter_verint"><br>
+
+                    <label for="exporter_gateway">Exporter Gateway</label>
+                    <input type="checkbox" id="exporter_gateway" name="exporters" value="exporter_gateway"><br>
+
+                    <label for="exporter_breeze">Exporter Breeze</label>
+                    <input type="checkbox" id="exporter_breeze" name="exporters" value="exporter_breeze"><br>
+
+                    <label for="exporter_sm">Exporter Session Manager</label>
+                    <input type="checkbox" id="exporter_sm" name="exporters" value="exporter_sm"><br>
+
+                    <label for="exporter_acm">Exporter ACM</label>
+                    <input type="checkbox" id="exporter_acm" name="exporters" value="exporter_acm"><br>
+
+                    <label for="exporter_jmx">Exporter JMX</label>
+                    <input type="checkbox" id="exporter_jmx" name="exporters" value="exporter_jmx"><br>
+
+                    <label for="exporter_vmware">Exporter VMWare</label>
+                    <input type="checkbox" id="exporter_wmware" name="exporters" value="exporter_wmware"><br>
+
+                    <label for="exporter_kafka">Exporter KAFKA</label>
+                    <input type="checkbox" id="exporter_kafka" name="exporters" value="exporter_kafka"><br>
+
+                    <label for="exporter_callback">Exporter CallBack</label>
+                    <input type="checkbox" id="exporter_callback" name="exporters" value="exporter_callback"><br>
+
+                    <label for="exporter_drac">Exporter DRAC</label>
+                    <input type="checkbox" id="exporter_drac" name="exporters" value="exporter_drac"><br>
+
+                    <label for="exporter_genesyscloud">*Exporter Genesys Cloud</label>
+                    <input type="checkbox" id="exporter_genesyscloud" name="exporters" value="exporter_genesyscloud"><br>
+
+                    <label for="exporter_tcti">Exporter TCTI Softphone</label>
+                    <input type="checkbox" id="exporter_tcti" name="exporters" value="exporter_tcti"><br>
+                </div> <!-- End of Column 1 -->
+
+                <div class="column"> <!-- Column 2 -->
+                    <label for="exporter_network">Exporter Network</label>
+                    <input type="checkbox" id="exporter_network" name="exporters" value="exporter_network"><br>
+
+                    <label for="exporter_aaep">Exporter AAEP</label>
+                    <input type="checkbox" id="exporter_aaep" name="exporters" value="exporter_aaep"><br>
+
+                    <label for="exporter_pfsense">Exporter PfSense</label>
+                    <input type="checkbox" id="exporter_pfsense" name="exporters" value="exporter_pfsense"><br>
+
+                    <label for="exporter_aic">Exporter AIC</label>
+                    <input type="checkbox" id="exporter_aic" name="exporters" value="exporter_aic"><br>
+
+                    <label for="exporter_voiceportal">Exporter Voice Portal</label>
+                    <input type="checkbox" id="exporter_voiceportal" name="exporters" value="exporter_voiceportal"><br>
+
+                    <label for="exporter_aam">Exporter AAM</label>
+                    <input type="checkbox" id="exporter_aam" name="exporters" value="exporter_aam"><br>
+
+                    <label for="exporter_ipo">Exporter IP Office</label>
+                    <input type="checkbox" id="exporter_ipo" name="exporters" value="exporter_ipo"><br>
+
+                    <label for="exporter_iq">Exporter Avaya IQ</label>
+                    <input type="checkbox" id="exporter_iq" name="exporters" value="exporter_iq"><br>
+
+                    <label for="exporter_mpp">Exporter MPP</label>
+                    <input type="checkbox" id="exporter_mpp" name="exporters" value="exporter_mpp"><br>
+
+                    <label for="exporter_ams">Exporter AMS</label>
+                    <input type="checkbox" id="exporter_ams" name="exporters" value="exporter_ams"><br>
+
+                    <label for="exporter_pc5">Exporter PC5</label>
+                    <input type="checkbox" id="exporter_pc5" name="exporters" value="exporter_pc5"><br>
+
+                    <label for="exporter_wfodb">Exporter WFO DB</label>
+                    <input type="checkbox" id="exporter_wfodb" name="exporters" value="exporter_wfodb"><br>
+
+                    <label for="exporter_audiocodesbc">*Exporter Audio Code SBC</label>
+                    <input type="checkbox" id="exporter_audiocodesbc" name="exporters" value="exporter_audiocodesbc"><br>
+
+                    <label for="exporter_baas">Exporter BAAS</label>
+                    <input type="checkbox" id="exporter_baas" name="exporters" value="exporter_baas"><br>
+
+                    <label for="exporter_redis">Exporter Redis</label>
+                    <input type="checkbox" id="exporter_redis" name="exporters" value="exporter_redis"><br>
+
+                    <label for="exporter_weblm">*Exporter WebLM</label>
+                    <input type="checkbox" id="exporter_weblm" name="exporters" value="exporter_weblm"><br>
+
+                    <label for="add_snmp_args">*Add SNMP Args</label>
+                    <input type="checkbox" id="add_snmp_args" name="exporters" value="add_snmp_args"><br>
+
+                    <!-- ... More checkboxes ... -->
+                </div> <!-- End of Column 2 -->
+            </div> <!-- End of columns div -->
+
+            <br><br>
+            <input type="submit" value="Process">
+        </form>
+        <form action="/finish_and_clean" method="post" style="text-align: center; margin-top: 20px;">
+            <input type="submit" value="Finish and Clean">
+        </form>
+    </div>
+</body>
+</html>

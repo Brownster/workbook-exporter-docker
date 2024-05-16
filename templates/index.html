@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <style>
+        /* Global styles for consistency across your web apps */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('{{ url_for('static', filename='background.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+
+        /* Specific styles for this workbook exporter app */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <h1>Welcome! Upload a CSV file and choose a listen port starting number</h1>
+            <label for="file">Add CSV file:</label>
+            <input type="file" name="file" id="file" accept=".csv,.docx"><br><br>
+            <label for="existing_yaml">Add YAML file:</label>
+            <input type="file" name="existing_yaml" id="existing_yaml" accept=".yaml,.yml"><br><br>
+            <label for="default_listen_port">Default Listen Port:</label>
+            <input type="number" id="default_listen_port" name="default_listen_port"><br><br>
+            <input type="submit" value="Upload">
+        </form>
+        <button onclick="window.open('/terminal', '_blank');">Terminal</button>
+    </div> <!-- Closing the container div -->
+</body>
+
+</html>

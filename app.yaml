@@ -1,0 +1,7 @@
+runtime: python27
+env: standard
+entrypoint: gunicorn -b :8000 wbexporter:wbexporter-fe.py
+threadsafe: true
+handlers:
+- url: /.*
+  script: main.app

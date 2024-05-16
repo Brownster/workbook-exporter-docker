@@ -1,0 +1,6 @@
+Flask==2.2.3
+pandas==1.3.5
+oyaml==1.0
+ruamel.yaml==0.17.21
+Werkzeug==2.2.3
+gunicorn==20.1.0
