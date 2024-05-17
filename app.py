@@ -1554,18 +1554,33 @@ def filter_rows_by_exporter(df, exporter_name):
 
 #####################################################     read input file    ##########################################################################
 
+def identify_starting_row(df):
+    """
+    Identify the correct starting row by looking for the 'FQDN' column.
+    The function checks rows 6, 7, and 8 to determine the starting row.
+    """
+    for i in range(6, 9):
+        if 'FQDN' in df.iloc[i].values:
+            return i
+    return 6  # default to 6 if 'FQDN' is not found
+
 def read_input_file(file_path):
-    # Check if file is CSV or Excel
     file_extension = os.path.splitext(file_path)[1]
     if file_extension == '.csv':
-        # Read CSV file into pandas
-        df = pd.read_csv(file_path, skiprows=6, low_memory=False)
+        # Read CSV file to identify the correct starting row
+        df_preview = pd.read_csv(file_path, nrows=10, low_memory=False)
+        start_row = identify_starting_row(df_preview)
+        df = pd.read_csv(file_path, skiprows=range(0, start_row), low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
-        # Read Excel file into pandas
-        df = pd.read_excel(file_path, sheet_name='Sheet2', skiprows=range(0, 6))
+        # Read Excel file to identify the correct starting row
+        sheet_name = 'Sheet2'
+        df_preview = pd.read_excel(file_path, sheet_name=sheet_name, nrows=10)
+        start_row = identify_starting_row(df_preview)
+        df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
     return df
+
 
 ################################################### write to Yaml file and print.F   #################################################################
 
