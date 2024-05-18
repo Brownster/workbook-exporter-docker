@@ -1580,7 +1580,7 @@ def filter_rows_by_exporter(df, exporter_name):
 # Function to read the input file with hardcoded skip rows
 def read_input_file(file_path):
     file_extension = os.path.splitext(file_path)[1]
-    skip_rows = 7
+    skip_rows = 6
     if file_extension == '.csv':
         df = pd.read_csv(file_path, skiprows=range(skip_rows), low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
