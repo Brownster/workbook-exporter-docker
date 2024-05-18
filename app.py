@@ -1573,7 +1573,7 @@ def read_input_file(file_path):
         df = pd.read_csv(file_path, skiprows=range(0, start_row), low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
         # Read Excel file to identify the correct starting row
-        sheet_name = 'Sheet2'
+        sheet_name = 'Estate lists'
         df_preview = pd.read_excel(file_path, sheet_name=sheet_name, nrows=10)
         start_row = identify_starting_row(df_preview)
         df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
