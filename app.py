@@ -1577,21 +1577,15 @@ def filter_rows_by_exporter(df, exporter_name):
 #     else:
 #         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
 #     return df
-def identify_starting_row(df_preview):
-    for index, row in df_preview.iterrows():
-        if "Configuration Item Name" in row.values:
-            return index + 1
-    raise ValueError("Unable to find the correct starting row in the provided preview.")
-
+# Function to read the input file with hardcoded skip rows
 def read_input_file(file_path):
     file_extension = os.path.splitext(file_path)[1]
+    skip_rows = 7
     if file_extension == '.csv':
-        df = pd.read_csv(file_path, skiprows=6, low_memory=False)
+        df = pd.read_csv(file_path, skiprows=range(skip_rows), low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
         sheet_name = 'Estate lists'
-        df_preview = pd.read_excel(file_path, sheet_name=sheet_name, nrows=10)
-        start_row = identify_starting_row(df_preview)
-        df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
+        df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(skip_rows))
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
     return df
