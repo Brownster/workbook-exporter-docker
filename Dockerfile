@@ -17,4 +17,4 @@ EXPOSE 8000
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "workbook_exporter-fe:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
