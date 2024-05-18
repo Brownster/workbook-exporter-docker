@@ -1579,13 +1579,14 @@ def filter_rows_by_exporter(df, exporter_name):
 #     return df
 # Function to read the input file with hardcoded skip rows
 def read_input_file(file_path):
+    # Check if file is CSV or Excel
     file_extension = os.path.splitext(file_path)[1]
-    skip_rows = 6
     if file_extension == '.csv':
-        df = pd.read_csv(file_path, skiprows=range(skip_rows), low_memory=False)
+        # Read CSV file into pandas
+        df = pd.read_csv(file_path, skiprows=6, low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
-        sheet_name = 'Estate lists'
-        df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(skip_rows))
+        # Read Excel file into pandas
+        df = pd.read_excel(file_path, sheet_name='Estate lists', skiprows=range(0, 6))
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
     return df
