@@ -1554,6 +1554,29 @@ def filter_rows_by_exporter(df, exporter_name):
 
 #####################################################     read input file    ##########################################################################
 
+# def identify_starting_row(df_preview):
+#     """
+#     Identify the starting row of the dataframe by looking for the header row.
+#     """
+#     for i, row in df_preview.iterrows():
+#         if 'Configuration Item Name' in row.values and 'Location' in row.values and 'Country' in row.values:
+#             return i
+#     raise ValueError("Header row not found in the previewed rows")
+
+# def read_input_file(file_path):
+#     file_extension = os.path.splitext(file_path)[1]
+#     if file_extension == '.csv':
+#         df_preview = pd.read_csv(file_path, nrows=10, low_memory=False)
+#         start_row = identify_starting_row(df_preview)
+#         df = pd.read_csv(file_path, skiprows=range(0, start_row), low_memory=False)
+#     elif file_extension in ['.xlsx', '.xls']:
+#         sheet_name = 'Estate lists'
+#         df_preview = pd.read_excel(file_path, sheet_name=sheet_name, nrows=10)
+#         start_row = identify_starting_row(df_preview)
+#         df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
+#     else:
+#         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
+#     return df
 def identify_starting_row(df_preview):
     """
     Identify the starting row of the dataframe by looking for the header row.
@@ -1576,7 +1599,17 @@ def read_input_file(file_path):
         df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
+
+    # Debug: print columns of the DataFrame
+    print("Columns in the DataFrame:", df.columns)
+
     return df
+
+# Example call to test the function (this would normally be part of your Flask route)
+file_path = "/mnt/data/ASRA Sabio Monitoring 3 Workbook V5.xlsx"
+df = read_input_file(file_path)
+print(df.head())
+
 
 
 
