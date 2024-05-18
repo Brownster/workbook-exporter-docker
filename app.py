@@ -1585,8 +1585,10 @@ def read_input_file(file_path):
         # Read CSV file into pandas
         df = pd.read_csv(file_path, skiprows=6, low_memory=False)
     elif file_extension in ['.xlsx', '.xls']:
-        # Read Excel file into pandas
-        df = pd.read_excel(file_path, sheet_name='Estate lists', skiprows=range(0, 6))
+    # Read Excel file into pandas
+        sheet_index = 2
+        df = pd.read_excel(file_path, sheet_name=sheet_index, skiprows=range(0, 6))
+#        df = pd.read_excel(file_path, sheet_name='Estate lists', skiprows=range(0, 6))
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
     return df
