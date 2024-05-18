@@ -1601,14 +1601,6 @@ def read_input_file(file_path):
 
 
 
-# Example call to test the function (this would normally be part of your Flask route)
-file_path = "/mnt/data/ASRA Sabio Monitoring 3 Workbook V5.xlsx"
-df = read_input_file(file_path)
-print(df.head())
-
-
-
-
 ################################################### write to Yaml file and print.F   #################################################################
 
 def process_exporter(exporter_name, existing_yaml_output, new_entries, yaml_output, output_path):
