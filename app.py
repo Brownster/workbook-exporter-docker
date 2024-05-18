@@ -1791,7 +1791,7 @@ default_listen_port = []
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/tmp/'
-app.config['ALLOWED_EXTENSIONS'] = {'csv', 'docx', 'yaml', 'yml'}
+app.config['ALLOWED_EXTENSIONS'] = {'csv', 'xlsx', 'yaml', 'yml'}
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
 app.secret_key = "your_secret_key"
 
