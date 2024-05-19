@@ -1,80 +1,69 @@
 Workbook Exporter
 
-Workbook Exporter is a Flask web application that processes CSV files, runs specified exporters on them, and generates output files based on the selected exporters. It also allows users to provide an existing YAML configuration file for processing.
+Workbook Exporter is a Dockerized Flask web application that processes CSV and Excel files, allowing users to apply specified exporters and generate output files based on their selections. It supports the use of YAML configuration files for advanced processing rules.
 Features
 
-    Upload CSV and optional YAML files
-    Select from a list of available exporters
-    Process the uploaded files with the chosen exporters
-    Display progress in a live-updating terminal window
-    Clean up temporary files and download the output
+    Upload CSV or Excel and optional YAML configuration files.
+    Select from a list of available exporters.
+    Process the uploaded files with the chosen exporters.
+    Display processing progress in a live-updating terminal window.
+    Clean up temporary files and allow users to download the output.
 
 Prerequisites
 
-    Python 3.7+
-    Flask
-    Werkzeug
+    Docker
 
-Installation
+Installation & Running with Docker
 
-    Clone the repository:
+Instead of setting up a Python environment manually, you can use Docker to run the application. This ensures that the application runs consistently across all environments.
+Pull the Docker Image
 
-    bash
-
-git clone https://github.com/Brownster/workbook_exporter.git
-
-Change to the project directory:
+You can pull the latest version of the Workbook Exporter from Docker Hub:
 
 bash
 
-cd workbook_exporter
+docker pull yourusername/workbook-exporter:latest
 
-Install the required packages:
+Run the Container
 
-    pip install -r requirements.txt
+To run the application:
 
+bash
+
+docker run -d -p 5000:5000 --name workbook-exporter yourusername/workbook-exporter:latest
+
+This command starts the workbook-exporter container and makes it accessible via http://localhost:5000.
 Usage
 
-    Run the Flask app:
-
-to run gunicorn -w 4 -b 0.0.0.0:8000 workbook_exporter-fe5:app
-
-    arduino
-
-export FLASK_APP=app.py
-export FLASK_ENV=development
-flask run
-
-On Windows, replace export with set:
-
-arduino
-
-    set FLASK_APP=app.py
-    set FLASK_ENV=development
-    flask run
-
-    Open your browser and navigate to http://127.0.0.1:5000.
-
-    Upload a CSV file and, optionally, a YAML configuration file.
-
-    Choose the desired exporters from the list.
-
-    Click the "Process" button to run the selected exporters on the uploaded files.
-
-    Monitor the progress in the terminal window.
-
-    Once the processing is complete, click the "Finish and Clean" button to clean up temporary files and return to the initial file upload screen.
-
+    Open your browser and navigate to http://localhost:5000.
+    Upload a CSV or Excel file and, optionally, a YAML configuration file that will be updated.
+    Choose the desired exporters from the list provided.
+    Click the "Process" button to start the processing of the uploaded files.
+    Monitor the processing progress through the terminal window integrated into the web interface.
+    Downloading the processed output is automatic.
+    Once processing is complete, click the "Finish and Clean" button. This will clean up any temporary files.
+    
 Customizing Exporters
 
-You can add or modify exporters in the app.py file. To add a new exporter, define a function for the exporter, then include it in the list of available exporters in the process_file function.
+To customize or add new exporters:
+
+    Dockerized App Modification: If you wish to add or modify the existing exporters, you will need to make changes to the application code. Clone the repository, make your changes, and rebuild the Docker image.
+
+    bash
+
+    git clone https://github.com/Brownster/workbook_exporter.git
+    cd workbook_exporter
+    # Make your changes
+    docker build -t brownster/workbook-exporter:latest .
+
+    Update the Application: After changes, push the new version of the Docker image to Docker Hub, and redeploy the container.
+
 Contributing
 
-If you want to contribute to this project, please submit a pull request with your changes. We welcome any contributions, whether it's fixing bugs, adding new features, or updating documentation.
+We welcome contributions from the community, whether they are bug fixes, improvements, or new features. Please fork the repository and submit a pull request with your updates.
+Screenshots
 
+Here are some screenshots of the application:
 
+![image](https://github.com/Brownster/workbook-exporter-docker/assets/6543166/a499a47a-e605-476a-b188-f15c5856c3f6)
 
-![Screenshot from 2023-04-16 10-39-13](https://user-images.githubusercontent.com/6543166/232290330-8da3571e-e06a-4e51-8b01-8773ab11c2d0.png)
-
-
-![Screenshot from 2023-04-16 10-39-38](https://user-images.githubusercontent.com/6543166/232290325-768edd3a-5caf-4f71-b561-24b8b7eebdaf.png)
