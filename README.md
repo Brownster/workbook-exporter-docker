@@ -62,6 +62,8 @@ We welcome contributions from the community, whether they are bug fixes, improve
 Screenshots
 
 Here are some screenshots of the application:
+![image](https://github.com/Brownster/workbook-exporter-docker/assets/6543166/f6cec27d-098e-4d49-8d58-04fcb1acb7ed)
+![image(1)](https://github.com/Brownster/workbook-exporter-docker/assets/6543166/552ff1d4-a089-476c-ba8c-2c2561970754)
 
-![image](https://github.com/Brownster/workbook-exporter-docker/assets/6543166/a499a47a-e605-476a-b188-f15c5856c3f6)
+
 
