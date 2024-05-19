@@ -1554,43 +1554,32 @@ def filter_rows_by_exporter(df, exporter_name):
 
 #####################################################     read input file    ##########################################################################
 
-# def identify_starting_row(df_preview):
-#     """
-#     Identify the starting row of the dataframe by looking for the header row.
-#     """
-#     for i, row in df_preview.iterrows():
-#         if 'Configuration Item Name' in row.values and 'Location' in row.values and 'Country' in row.values:
-#             return i
-#     raise ValueError("Header row not found in the previewed rows")
-
-# def read_input_file(file_path):
-#     file_extension = os.path.splitext(file_path)[1]
-#     if file_extension == '.csv':
-#         df_preview = pd.read_csv(file_path, nrows=10, low_memory=False)
-#         start_row = identify_starting_row(df_preview)
-#         df = pd.read_csv(file_path, skiprows=range(0, start_row), low_memory=False)
-#     elif file_extension in ['.xlsx', '.xls']:
-#         sheet_name = 'Estate lists'
-#         df_preview = pd.read_excel(file_path, sheet_name=sheet_name, nrows=10)
-#         start_row = identify_starting_row(df_preview)
-#         df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=range(0, start_row))
-#     else:
-#         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
-#     return df
-# Function to read the input file with hardcoded skip rows
 def read_input_file(file_path):
     # Check if file is CSV or Excel
-    file_extension = os.path.splitext(file_path)[1]
+    file_extension = os.path.splitext(file_path)[1].lower()
+    
     if file_extension == '.csv':
         # Read CSV file into pandas
-        df = pd.read_csv(file_path, skiprows=6, low_memory=False)
+        try:
+            df = pd.read_csv(file_path, header=6, low_memory=False)
+        except Exception as e:
+            raise ValueError(f"Error reading CSV file: {e}")
+    
     elif file_extension in ['.xlsx', '.xls']:
-    # Read Excel file into pandas
+        # Read Excel file into pandas
+        sheet_name = 'Estate lists'
         sheet_index = 2
-        df = pd.read_excel(file_path, sheet_name=sheet_index, skiprows=range(0, 6))
-#        df = pd.read_excel(file_path, sheet_name='Estate lists', skiprows=range(0, 6))
+        try:
+            if sheet_name in pd.ExcelFile(file_path).sheet_names:
+                df = pd.read_excel(file_path, sheet_name=sheet_name, header=6)
+            else:
+                df = pd.read_excel(file_path, sheet_name=sheet_index, header=6)
+        except Exception as e:
+            raise ValueError(f"Error reading Excel file: {e}")
+    
     else:
         raise ValueError("Invalid file type. Only CSV and Excel files are supported.")
+    
     return df
 
     # Debug: print columns of the DataFrame
