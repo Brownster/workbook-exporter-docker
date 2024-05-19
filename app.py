@@ -1571,9 +1571,9 @@ def read_input_file(file_path):
         sheet_index = 2
         try:
             if sheet_name in pd.ExcelFile(file_path).sheet_names:
-                df = pd.read_excel(file_path, sheet_name=sheet_name, header=8)
+                df = pd.read_excel(file_path, sheet_name=sheet_name, header=7)
             else:
-                df = pd.read_excel(file_path, sheet_name=sheet_index, header=8)
+                df = pd.read_excel(file_path, sheet_name=sheet_index, header=7)
         except Exception as e:
             raise ValueError(f"Error reading Excel file: {e}")
     
