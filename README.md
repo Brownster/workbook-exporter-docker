@@ -1,7 +1,7 @@
 Workbook Exporter
 
 Workbook Exporter is a Dockerized Flask web application that processes CSV and Excel workbook files, allowing users to apply specified prometheus exporters and generate output yaml config files based on their selections. It supports the use of YAML existing configuration files uploaded along side excel / csv doc these targets will be added to existing yaml config.
-Features
+
 
     Upload CSV or Excel and optional YAML configuration files.
     Select from a list of available exporters.
@@ -20,7 +20,6 @@ Pull the Docker Image
 
 You can pull the latest version of the Workbook Exporter from Docker Hub:
 
-bash
 
 docker pull brownster/workbook-exporter:latest
 
@@ -28,7 +27,6 @@ Run the Container
 
 To run the application:
 
-bash
 
 docker run -d -p 5000:5000 --name workbook-exporter yourusername/workbook-exporter:latest
 
