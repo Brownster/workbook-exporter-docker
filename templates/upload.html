@@ -1,39 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File</title>
+    <title>Convert Workbook to YAML</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('static/background.png');
+            background-image: url('{{ url_for('static', filename='background.png') }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            color: white;
+            color: #333;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 20px;
         }
 
         h1 {
-            color: #FFD700;;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
         }
 
         h1 span {
             display: block;
+            font-size: 16px;
+            color: #666;
         }
 
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"],
+        input[type="number"],
+        input[type="submit"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
 
         a {
             display: inline-block;
@@ -44,27 +93,65 @@
             border-radius: 5px;
             text-decoration: none;
             font-size: 18px;
+            transition: background-color 0.3s;
+            text-align: center;
         }
 
         a:hover {
             background-color: #555;
-            
-        input[type=submit] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            color: #f00;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin: 5px 0;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1><span>Convert workbook to YAML</span><span>Upload workbook in CSV or xlsx format</span></h1>
-        
+        <h1>
+            Convert Workbook to YAML
+            <span>Upload workbook in CSV or XLSX format</span>
+        </h1>
+
+        <!-- Displaying Flash Messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul>
@@ -74,16 +161,33 @@
                 </ul>
             {% endif %}
         {% endwith %}
+
+        <!-- Form for Upload -->
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".csv,.xlsx"><br><br>
-            <input type="file" name="existing_yaml" accept=".yaml,.yml,.eyaml"><br><br>
-            <label for="default_listen_port">Default Listen Port:</label>
-            <input type="number" id="default_listen_port" name="default_listen_port"><br><br>
+            <!-- Workbook File Input with Tooltip -->
+            <div class="tooltip">
+                <input type="file" name="file" accept=".csv,.xlsx" title="Choose a CSV or XLSX workbook file">
+                <span class="tooltiptext">Select a CSV or XLSX file containing your workbook data to convert.</span>
+            </div>
+
+            <!-- Existing YAML File Input with Tooltip -->
+            <div class="tooltip">
+                <input type="file" name="existing_yaml" accept=".yaml,.yml,.eyaml" title="Choose an existing YAML file (optional)">
+                <span class="tooltiptext">Optionally, upload an existing YAML file to append or merge with.</span>
+            </div>
+
+            <!-- Default Listen Port Input with Tooltip -->
+            <label for="default_listen_port" class="tooltip">Default Listen Port:
+                <span class="tooltiptext">Specify the default listen port for Prometheus targets.</span>
+            </label>
+            <input type="number" id="default_listen_port" name="default_listen_port" min="1" max="65535" placeholder="Enter a port number, e.g., 9090" title="Enter the default listen port">
+
             <input type="submit" value="Upload">
         </form>
 
-        <!-- Added GitHub Link -->
+        <!-- GitHub Link -->
         <a href="https://github.com/Brownster/workbook-exporter-docker" target="_blank">View on GitHub</a>
     </div>
 </body>
+
 </html>
